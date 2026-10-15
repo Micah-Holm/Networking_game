@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ChatLibrary;
 
-public class ChatNetworkModel: INotifyPropertyChanged
+public class GameNetworkModel: INotifyPropertyChanged
 {
     #region Properties and Fields
 
@@ -62,7 +62,7 @@ public class ChatNetworkModel: INotifyPropertyChanged
     {
         if (_socket != null)
         {
-            ChatMessage msg = new ChatMessage(Username,  CurrentMessage);
+            GameMessage msg = new GameMessage(Username,  CurrentMessage);
             _socket.WriteChatMessage(msg);
         }
     }
@@ -71,7 +71,7 @@ public class ChatNetworkModel: INotifyPropertyChanged
     {
         while (_socket != null)
         {
-            ChatMessage? msg = _socket.ReadChatMessage();
+            GameMessage? msg = _socket.ReadChatMessage();
             if (msg != null)
             {
                 MessageBoard += $"{msg.Sender} said: {msg.Message}{Environment.NewLine}";

@@ -7,7 +7,7 @@ namespace ChatClient;
 class Program
 {
     private static string? Name { get; set; } = string.Empty;
-    private static ChatNetworkModel? Model { get; set; }
+    private static GameNetworkModel? Model { get; set; }
     
     static void Main()
     {
@@ -18,7 +18,7 @@ class Program
     public async void MainAsync()
     {
         Name = GetInput("Enter your name: ");
-        Model = new ChatNetworkModel();
+        Model = new GameNetworkModel();
 
         Model.PropertyChanged += PropertyChangedListener;
         Model.Username = Name;
@@ -82,7 +82,7 @@ class Program
 
     private static void PropertyChangedListener(object? sender, PropertyChangedEventArgs e)
     {
-        if (sender is ChatNetworkModel model)
+        if (sender is GameNetworkModel model)
         {
             if (e.PropertyName == "MessageBoard" && !string.IsNullOrEmpty(model.MessageBoard))
             {

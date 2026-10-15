@@ -38,13 +38,13 @@ public static class Extensions
         stream.Flush();
     }
 
-    public static ChatMessage? ReadChatMessage(this TcpClient client)
+    public static GameMessage? ReadChatMessage(this TcpClient client)
     {
         string msg = client.ReadString();
         (bool success, string errors) = JsonSchemaValidator.Validate(msg);
         if (success)
         {
-            var chatMessage = JsonConvert.DeserializeObject<ChatMessage>(msg);
+            var chatMessage = JsonConvert.DeserializeObject<GameMessage>(msg);
             if (chatMessage == null)
             {
                 throw new Exception("Something went wrong and we couldn't deserialize the object from JSON.");
@@ -55,7 +55,7 @@ public static class Extensions
         return null;
     }
 
-    public static void WriteChatMessage(this TcpClient client, ChatMessage msg)
+    public static void WriteChatMessage(this TcpClient client, GameMessage msg)
     {
         string json = JsonConvert.SerializeObject(msg);
         client.WriteString(json);
